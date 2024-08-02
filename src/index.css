@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 225 27% 95%;
+		--foreground: 225 5% 10%;
+		--card: 225 27% 95%;
+		--card-foreground: 225 5% 15%;
+		--popover: 225 27% 95%;
+		--popover-foreground: 225 95% 10%;
+		--primary: 225 63.4% 36.5%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 225 27% 90%;
+		--secondary-foreground: 0 0% 0%;
+		--muted: 187 27% 95%;
+		--muted-foreground: 225 5% 40%;
+		--accent: 187 27% 90%;
+		--accent-foreground: 225 5% 15%;
+		--destructive: 0 50% 50%;
+		--destructive-foreground: 225 5% 95%;
+		--border: 225 27% 82%;
+		--input: 225 27% 50%;
+		--ring: 225 63.4% 36.5%;
+		--radius: 0.5rem;
+		--success: 120 57% 40%;
+		--success-foreground: 0 0% 100%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+		font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+.custom-shape-divider-bottom-1721505008 {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+	transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1721505008 svg {
+	position: relative;
+	display: block;
+	width: calc(144% + 1.3px);
+	height: 128px;
+	transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1721505008 .shape-fill {
+	fill: #f3f4f6;
+}
+
+@keyframes scroll {
+	from {
+		transform: translateX(0%);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+.scroll {
+	animation: scroll 45s linear infinite;
+}
+
+.blur-effect {
+	pointer-events: none;
+	z-index: 10;
+	background: linear-gradient(to right, hsl(225, 27%, 95%), transparent);
+}
+
+.blur-effect:nth-child(3) {
+	background: linear-gradient(to left, hsl(225, 27%, 95%), transparent);
+}
+
+.highlight {
+	position: relative;
+	display: inline-block;
+}
+
+.highlight::after {
+	display: flex;
+	position: absolute;
+	content: "";
+	background-color: hsl(225, 63.4%, 36.5%);
+	opacity: .3;
+	width: calc(100% + 4px);
+	height: 40%;
+	left: -2px;
+	bottom: 10%;
+	z-index: -1;
+}
+
+.parallax {
+	background-image: url('https://cdn.britannica.com/06/154006-050-3D5B38C6/Pavilions-Lawn-University-of-Virginia-Charlottesville.jpg');
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+  }
