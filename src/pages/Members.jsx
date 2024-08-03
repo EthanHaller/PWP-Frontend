@@ -50,5 +50,3 @@ const Members = () => {
 }
 
 export default Members
-
-//profitwithpurpose2016@gmail.com Profitwithpurpose!

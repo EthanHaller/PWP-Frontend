@@ -1,8 +1,10 @@
 import React, { useState } from "react"
 import ContactForm from "../components/ContactForm"
-import axios from "axios"
+import emailjs from "@emailjs/browser"
 import { useToast } from "../components/ui/use-toast"
 import { Toaster } from "../components/ui/toaster"
+
+emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
 
 const Contact = () => {
 	const { toast } = useToast()
@@ -37,23 +39,31 @@ const Contact = () => {
 		setFormErrors(errors)
 
 		if (Object.keys(errors).length !== 0) return
-		axios
-			.post(`${import.meta.env.VITE_BACKEND_URL}/contact/send`, formValues)
-			.then((res) => {
+
+		emailjs
+			.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, formValues)
+			.then((response) => {
 				toast({
 					title: "Success",
 					description: "Email sent successfully!",
 					variant: "success",
 					duration: 2000,
 				})
+				setFormValues({
+					name: "",
+					email: "",
+					subject: "",
+					message: "",
+				})
 			})
-			.catch((err) => {
+			.catch((error) => {
 				toast({
 					title: "Error",
-					description: err.message,
+					description: "Failed to send email. Please try again.",
 					variant: "destructive",
 					duration: Infinity,
 				})
+				console.error("EmailJS Error:", error)
 			})
 	}
 
