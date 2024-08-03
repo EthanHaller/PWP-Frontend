@@ -38,7 +38,15 @@ const Contact = () => {
 		const errors = validate()
 		setFormErrors(errors)
 
-		if (Object.keys(errors).length !== 0) return
+		if (Object.keys(errors).length !== 0) {
+			toast({
+				title: "Error",
+				description: "All fields are required.",
+				variant: "destructive",
+				duration: Infinity,
+			})
+			return
+		}
 
 		emailjs
 			.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, formValues)
@@ -70,8 +78,14 @@ const Contact = () => {
 	return (
 		<>
 			<h1 className="text-primary font-bold md:hidden absolute top-8 right-8 z-50">Contact</h1>
-			<div className="flex pt-32 mb-8">
-				<ContactForm onSubmit={handleSubmit} errors={formErrors} values={formValues} onChange={handleChange} />
+			<div className="pt-24">
+				<div className="flex justify-center items-start py-8 gap-16 bg-primary">
+					<div>
+						<h1 className="text-5xl font-bold text-background mt-8">Get in touch.</h1>
+						<p className="text-muted my-4 pl-1">Fill out the form to send us an email.</p>
+					</div>
+					<ContactForm onSubmit={handleSubmit} errors={formErrors} values={formValues} onChange={handleChange} />
+				</div>
 			</div>
 			<Toaster />
 		</>

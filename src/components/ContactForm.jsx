@@ -6,17 +6,12 @@ import { Button } from "@/components/ui/button"
 
 export default function ContactForm({ onSubmit, errors, values, onChange }) {
 	return (
-		<Card className="w-full max-w-md mx-auto">
-			<CardHeader>
-				<CardTitle>Get in Touch</CardTitle>
-				<CardDescription>Fill out the form below to send us a message!</CardDescription>
-                {Object.keys(errors).length > 0 && <p className="text-xs text-red-500">All fields are required.</p>}
-			</CardHeader>
-			<CardContent>
+		<Card className="w-full max-w-md">
+			<CardContent className="mt-8">
 				<form className="grid gap-4" onSubmit={onSubmit}>
 					<div className="grid gap-2">
 						<Label htmlFor="name" className={errors.name ? "text-red-500" : ""}>
-							Name
+							Name*
 						</Label>
 						<Input
 							id="name"
@@ -29,7 +24,7 @@ export default function ContactForm({ onSubmit, errors, values, onChange }) {
 					</div>
 					<div className="grid gap-2">
 						<Label htmlFor="email" className={errors.email ? "text-red-500" : ""}>
-							Email
+							Email*
 						</Label>
 						<Input
 							id="email"
@@ -43,7 +38,7 @@ export default function ContactForm({ onSubmit, errors, values, onChange }) {
 					</div>
 					<div className="grid gap-2">
 						<Label htmlFor="subject" className={errors.subject ? "text-red-500" : ""}>
-							Subject
+							Subject*
 						</Label>
 						<Input
 							id="subject"
@@ -56,7 +51,7 @@ export default function ContactForm({ onSubmit, errors, values, onChange }) {
 					</div>
 					<div className="grid gap-2">
 						<Label htmlFor="message" className={errors.message ? "text-red-500" : ""}>
-							Message
+							Message*
 						</Label>
 						<Textarea
 							id="message"
