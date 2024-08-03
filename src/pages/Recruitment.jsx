@@ -21,7 +21,7 @@ const Recruitment = () => {
 			</div>
 			<div className="container mx-auto px-4 md:px-6 py-12">
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<Card className="py-6 px-2 bg-white shadow-md rounded-md">
+					<Card className="py-6 px-2 bg-primary-foreground shadow-md rounded-md">
 						<CardHeader className="flex items-center mb-4">
 							<FaStar size={40} className="text-primary" />
 							<h3 className="text-xl font-bold">About Us</h3>
@@ -34,7 +34,7 @@ const Recruitment = () => {
 						</CardContent>
 					</Card>
 
-					<Card className="py-6 px-2 bg-white shadow-md rounded-md">
+					<Card className="py-6 px-2 bg-primary-foreground shadow-md rounded-md">
 						<CardHeader className="flex items-center mb-4">
 							<FaTools size={40} className="text-primary" />
 							<h3 className="text-xl font-bold">Our Approach</h3>
@@ -47,7 +47,7 @@ const Recruitment = () => {
 						</CardContent>
 					</Card>
 
-					<Card className="py-6 px-2 bg-white shadow-md rounded-md">
+					<Card className="py-6 px-2 bg-primary-foreground shadow-md rounded-md">
 						<CardHeader className="flex items-center mb-4">
 							<FaGlobeAmericas size={40} className="text-primary" />
 							<h3 className="text-xl font-bold">Our Mission</h3>
@@ -60,7 +60,7 @@ const Recruitment = () => {
 						</CardContent>
 					</Card>
 
-					<Card className="py-6 px-2 bg-white shadow-md rounded-md">
+					<Card className="py-6 px-2 bg-primary-foreground shadow-md rounded-md">
 						<CardHeader className="flex items-center mb-4">
 							<FaGraduationCap size={40} className="text-primary" />
 							<h3 className="text-xl font-bold">Who We Recruit</h3>

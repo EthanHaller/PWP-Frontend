@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -40,28 +40,6 @@
 	}
 }
 
-.custom-shape-divider-bottom-1721505008 {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	overflow: hidden;
-	line-height: 0;
-	transform: rotate(180deg);
-}
-
-.custom-shape-divider-bottom-1721505008 svg {
-	position: relative;
-	display: block;
-	width: calc(144% + 1.3px);
-	height: 128px;
-	transform: rotateY(180deg);
-}
-
-.custom-shape-divider-bottom-1721505008 .shape-fill {
-	fill: #f3f4f6;
-}
-
 @keyframes scroll {
 	from {
 		transform: translateX(0%);
@@ -95,7 +73,7 @@
 	position: absolute;
 	content: "";
 	background-color: hsl(225, 63.4%, 36.5%);
-	opacity: .3;
+	opacity: 0.3;
 	width: calc(100% + 4px);
 	height: 40%;
 	left: -2px;
@@ -104,9 +82,9 @@
 }
 
 .parallax {
-	background-image: url('https://cdn.britannica.com/06/154006-050-3D5B38C6/Pavilions-Lawn-University-of-Virginia-Charlottesville.jpg');
+	background-image: url("https://cdn.britannica.com/06/154006-050-3D5B38C6/Pavilions-Lawn-University-of-Virginia-Charlottesville.jpg");
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-  }
+}
