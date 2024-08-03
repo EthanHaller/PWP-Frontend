@@ -3,6 +3,7 @@ import MemberCard from "../components/MemberCard"
 import { SkeletonCard } from "../components/SkeletonCard"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
+import Error from "../components/Error"
 
 const fetchMembers = async () => {
 	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members`)
@@ -16,7 +17,7 @@ const Members = () => {
 	})
 
 	if (isError) {
-		return <div>Error: {error.message}</div>
+		return <Error />
 	}
 
 	return (

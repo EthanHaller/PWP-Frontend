@@ -11,8 +11,8 @@ import { Link } from "react-router-dom"
 
 export default function Component() {
 	return (
-		<footer className="py-6 w-full">
-			<div className="container max-w-7xl flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:gap-0">
+		<footer className="absolute p-4 w-full">
+			<div className=" flex flex-col items-center justify-between gap-4 md:flex-row md:gap-0">
 				<div className="flex items-center gap-4">
 					<Link to="/" className="mr-6 hidden lg:flex">
 						<img src="pwp.svg" className="h-12" />

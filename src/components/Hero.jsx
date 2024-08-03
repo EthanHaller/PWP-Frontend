@@ -20,7 +20,7 @@ export default function Component() {
 					<p className="text-lg md:text-xl">
 						We strive to deliver impact-based consulting and investment to early-stage ESG startups from diverse perspectives.
 					</p>
-					<Button className="mt-4" variant="outline" onClick={() => scrollToAbout()}>About us.</Button>
+					<Button className="mt-4" variant="secondary" onClick={() => scrollToAbout()}>About us</Button>
 				</div>
 			</div>
 		</section>

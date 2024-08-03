@@ -9,6 +9,7 @@ import Members from "./pages/Members"
 import Contact from "./pages/Contact"
 import Project from "./pages/Project"
 import Layout from "./components/Layout"
+import NotFound from "./components/NotFound"
 import Login from "./pages/admin/Login"
 import Dashboard from "./pages/admin/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
 			{
 				path: "/contact",
 				element: <Contact />,
+			},
+			{
+				path: "*",
+				element: <NotFound />,
 			},
 		],
 	},

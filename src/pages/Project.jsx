@@ -4,7 +4,8 @@ import { Link, useParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { Button } from "../components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "../components/ui/skeleton"
+import Error from "../components/Error"
 
 const fetchProjectById = async ({ queryKey }) => {
 	const [_, id] = queryKey
@@ -20,7 +21,7 @@ const Project = () => {
 	})
 
 	if (isError) {
-		return <div>Error: {error.message}</div>
+		return <Error />
 	}
 
 	return (

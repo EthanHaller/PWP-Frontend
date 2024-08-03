@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { Link } from "react-router-dom"
 import { Skeleton } from "@/components/ui/skeleton"
+import Error from "../components/Error"
 
 const fetchProjects = async () => {
 	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/projects`)
@@ -18,7 +19,7 @@ const Portfolio = () => {
 	})
 
 	if (isError) {
-		return <div>Error: {error.message}</div>
+		return <Error />
 	}
 
 	return (
