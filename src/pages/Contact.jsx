@@ -79,7 +79,7 @@ const Contact = () => {
 		<>
 			<h1 className="text-primary font-bold md:hidden absolute top-8 right-8 z-50">Contact</h1>
 			<div className="pt-24">
-				<div className="flex justify-center items-start py-8 gap-16 bg-primary">
+				<div className="container md:max-w-full flex flex-col md:flex-row justify-center items-start py-8 gap-x-16 gap-y-4 bg-primary">
 					<div>
 						<h1 className="text-5xl font-bold text-background mt-8">Get in touch.</h1>
 						<p className="text-muted my-4 pl-1">Fill out the form to send us an email.</p>
