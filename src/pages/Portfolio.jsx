@@ -31,10 +31,10 @@ const Portfolio = () => {
 					{isLoading
 						? Array.from({ length: 6 }).map((_, index) => (
 								<Card key={index} className="relative overflow-hidden group rounded-none border-none shadow-none">
-									<Skeleton className="w-full h-auto aspect-video" />
-									<div className="flex justify-between items-center mt-2 mb-8 lg:hidden">
-										<Skeleton width={150} height={20} />
-										<Skeleton width={100} height={40} />
+									<Skeleton className="w-full h-auto aspect-video bg-accent" />
+									<div className="flex flex-col justify-between mt-2 mb-8 lg:hidden">
+										<Skeleton className="w-3/4 h-6 mb-2" />
+										<Skeleton className="w-1/2 h-10" />
 									</div>
 								</Card>
 						  ))

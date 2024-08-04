@@ -74,12 +74,12 @@ const Recruitment = () => {
 					</Card>
 				</div>
 			</div>
-			<div className="flex flex-col items-center mt-8 mb-16">
-				<h2 className="font-bold text-4xl mb-8">Interested in joining?</h2>
+			<div className="flex flex-col items-center mt-8 mb-16 container">
+				<h2 className="font-bold text-2xl md:text-4xl mb-8">Interested in joining?</h2>
 				<Button>
 					<a
 						target="_blank"
-						className="text-xl px-8"
+						className="text-lg md:text-xl px-8"
 						href="https://docs.google.com/forms/d/e/1FAIpQLScpZUqi7rGQbq9UFfS1Abc8jkhdpKs0mws9XkzkfRahAD1iYw/viewform?usp=sf_link"
 					>
 						Fill out our interest form!
