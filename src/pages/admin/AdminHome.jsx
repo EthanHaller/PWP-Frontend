@@ -5,7 +5,7 @@ import { auth } from "../../firebaseConfig"
 import { useAuth } from "../../context/AuthContext"
 import { Button } from "../../components/ui/button"
 
-const Dashboard = () => {
+const Home = () => {
 	const navigate = useNavigate()
 	const { currentUser } = useAuth()
 
@@ -19,14 +19,15 @@ const Dashboard = () => {
 	}
 
 	return (
-		<div className="container flex ">
-			<h1>Dashboard</h1>
-			{currentUser && <p>Welcome, {currentUser.email}</p>}
-			<Button onClick={handleLogout} className="">
-				Logout
-			</Button>
+		<div className="container">
+			<h1 className="text-5xl text-primary font-bold mb-16">Home</h1>
+			<h2 className="text-3xl mb-4">Hey, Admin!</h2>
+			<p className="text-lg text-muted-foreground">
+				This is where you can edit the content that is displayed on the main PwP website. You can add and delete content such as partner logos,
+				countries impacted, current members, past projects, and interest forms.
+			</p>
 		</div>
 	)
 }
 
-export default Dashboard
+export default Home
