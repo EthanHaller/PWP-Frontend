@@ -36,7 +36,7 @@ const Project = () => {
 				{isLoading ? <Skeleton /> : <h1 className="text-lg md:text-xl mx-4">{data.title}</h1>}
 			</div>
 			{isLoading ? (
-				<Skeleton className="w-full h-[75vh]" />
+				<Skeleton className="bg-foreground/10 w-full h-[75vh]" />
 			) : (
 				<iframe
 					src={data.presentationUrl}
