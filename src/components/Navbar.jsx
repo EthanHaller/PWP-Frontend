@@ -22,7 +22,7 @@ export default function Navbar() {
 				</SheetTrigger>
 				<SheetContent side="left">
 					<NavLink to="/" onClick={closeSheet}>
-						<img src="pwp.svg" className="h-12" />
+						<img src="/pwp.svg" className="h-12" />
 						<span className="sr-only">Profit with Purpose</span>
 					</NavLink>
 					<div className="grid gap-2 py-6">
@@ -45,7 +45,7 @@ export default function Navbar() {
 				</SheetContent>
 			</Sheet>
 			<NavLink to="/" className={({ isActive }) => `mr-6 hidden md:flex ${isActive ? "md:hidden" : ""}`}>
-				<img src="pwp.svg" className="h-14" />
+				<img src="/pwp.svg" className="h-14" />
 				<span className="sr-only">Profit with Purpose</span>
 			</NavLink>
 			<NavigationMenu className="hidden w-full md:flex md:justify-end">

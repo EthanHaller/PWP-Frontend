@@ -15,7 +15,7 @@ export default function Component() {
 			<div className=" flex flex-col items-center justify-between gap-4 md:flex-row md:gap-0">
 				<div className="flex items-center gap-4">
 					<Link to="/" className="mr-6 hidden lg:flex">
-						<img src="pwp.svg" className="h-12" />
+						<img src="/pwp.svg" className="h-12" />
 						<span className="sr-only">Profit with Purpose</span>
 					</Link>
 					<p className="text-xs text-muted-foreground">&copy; {new Date().getFullYear()} - All right reserved.</p>

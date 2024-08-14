@@ -11,7 +11,7 @@ import Project from "./pages/Project"
 import Layout from "./components/Layout"
 import NotFound from "./components/NotFound"
 import Login from "./pages/admin/Login"
-import Dashboard from "./pages/admin/Dashboard"
+import AdminHome from "./pages/admin/Home"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
 import "./index.css"
@@ -44,10 +44,6 @@ const router = createBrowserRouter([
 				path: "/contact",
 				element: <Contact />,
 			},
-			{
-				path: "*",
-				element: <NotFound />,
-			},
 		],
 	},
 	{
@@ -61,12 +57,16 @@ const router = createBrowserRouter([
 				element: <ProtectedRoute />,
 				children: [
 					{
-						path: "dashboard",
-						element: <Dashboard />,
+						path: "home",
+						element: <AdminHome />,
 					},
 				],
 			},
 		],
+	},
+	{
+		path: "*",
+		element: <NotFound />,
 	},
 ])
 
