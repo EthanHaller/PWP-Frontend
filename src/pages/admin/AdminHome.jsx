@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { signOut } from "firebase/auth"
 import { auth } from "../../firebaseConfig"
 import { useAuth } from "../../context/AuthContext"
-import { Button } from "../../components/ui/button"
 
 const Home = () => {
 	const navigate = useNavigate()
