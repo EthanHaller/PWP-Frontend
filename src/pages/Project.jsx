@@ -39,7 +39,7 @@ const Project = () => {
 				<Skeleton className="w-full h-[75vh]" />
 			) : (
 				<iframe
-					src={`https://drive.google.com/viewerng/viewer?embedded=true&url=${encodeURIComponent(data.presentationUrl)}`}
+					src={data.presentationUrl}
 					className="w-full h-[75vh]"
 				/>
 			)}
