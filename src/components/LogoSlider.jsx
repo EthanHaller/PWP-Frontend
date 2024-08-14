@@ -1,28 +1,39 @@
 import React from "react"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
+import { Skeleton } from "../components/ui/skeleton"
+import Error from "../components/Error"
 
-const logos = [
-	"images/ethiopian_delights.png",
-	"images/junk_labz.jpg",
-	"images/kava.png",
-	"images/muyu_milq.jpg",
-	"images/nature_buff.jpg",
-	"images/sfs.png",
-	"images/tofali_zetu.png",
-	"images/toloma.jpg",
-	"images/twende.png",
-	"images/we_planet.png",
-	"images/yellow_red.png",
-]
-
-const duplicatedLogos = [...logos, ...logos]
+const fetchPartners = async () => {
+	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/partners`)
+	return response.data
+}
 
 const LogoSlider = () => {
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ["partners"],
+		queryFn: fetchPartners,
+	})
+
+	if (isError) {
+		return <Error />
+	}
+
+	const partners = data?.partners || []
+	const duplicatedLogos = [...partners, ...partners]
+
 	return (
 		<div className="relative bg-white overflow-hidden mx-auto py-24">
 			<div className="scroll flex w-max">
-				{duplicatedLogos.map((logo, index) => (
-					<img key={index} src={logo} alt={`Logo ${index}`} className="h-24 w-auto px-8" />
-				))}
+				{isLoading ? (
+					Array.from({ length: 10 }).map((_, index) => (
+						<Skeleton key={index} className="h-24 w-24 mx-8" />
+					))
+				) : (
+					duplicatedLogos.map((logo, index) => (
+						<img key={index} src={logo.imageUrl} alt={logo.name} className="h-24 w-auto px-8" />
+					))
+				)}
 			</div>
 		</div>
 	)
