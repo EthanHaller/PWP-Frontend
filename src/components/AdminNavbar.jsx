@@ -37,8 +37,8 @@ export default function AdminNavbar() {
 						<h1 className="mx-4 text-primary font-bold">PwP Admin</h1>
 					</div>
 					<nav className="flex flex-col flex-grow space-y-4">
-						<NavLink to="/admin/dashboard" className="flex w-full items-center py-2 text-lg font-semibold" onClick={closeSheet}>
-							Dashboard
+						<NavLink to="/admin/home" className="flex w-full items-center py-2 text-lg font-semibold" onClick={closeSheet}>
+							Home
 						</NavLink>
 						<NavLink to="/admin/portfolio" className="flex w-full items-center py-2 text-lg font-semibold" onClick={closeSheet}>
 							Portfolio
@@ -69,8 +69,8 @@ export default function AdminNavbar() {
 					<h1 className="mx-4 text-primary font-bold">PwP Admin</h1>
 				</div>
 				<nav className="flex flex-col flex-1 grow space-y-6">
-					<NavLink to="/admin/dashboard" className={({ isActive }) => (isActive ? "text-primary font-bold" : "text-gray-600 hover:text-primary")}>
-						Dashboard
+					<NavLink to="/admin/home" className={({ isActive }) => (isActive ? "text-primary font-bold" : "text-gray-600 hover:text-primary")}>
+						Home
 					</NavLink>
 					<NavLink to="/admin/portfolio" className={({ isActive }) => (isActive ? "text-primary font-bold" : "text-gray-600 hover:text-primary")}>
 						Portfolio
