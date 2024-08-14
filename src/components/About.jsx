@@ -1,12 +1,44 @@
 import React from "react"
 import { FaGlobeAmericas, FaHandshake, FaUsers } from "react-icons/fa"
-import { Card, CardHeader, CardContent } from "./ui/card"
+import { Card, CardContent } from "./ui/card"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
+
+const fetchMembers = async () => {
+	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members`)
+	return response.data
+}
+
+const fetchPartners = async () => {
+	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/partners`)
+	return response.data
+}
+
+const fetchCountries = async () => {
+	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/countries`)
+	return response.data
+}
 
 const About = () => {
+	const { data: membersData } = useQuery({
+		queryKey: ["members"],
+		queryFn: fetchMembers,
+	})
+
+	const { data: partnersData } = useQuery({
+		queryKey: ["partners"],
+		queryFn: fetchPartners,
+	})
+
+	const { data: countriesData } = useQuery({
+		queryKey: ["countries"],
+		queryFn: fetchCountries,
+	})
+
 	const stats = [
-		{ icon: <FaUsers className="text-primary text-7xl" />, number: 42, label: "Members" },
-		{ icon: <FaGlobeAmericas className="text-primary text-7xl" />, number: 5, label: "Countries" },
-		{ icon: <FaHandshake className="text-primary text-7xl" />, number: 11, label: "Partners" },
+		{ icon: <FaUsers className="text-primary text-7xl" />, number: membersData?.totalCount ?? 42, label: "Members" },
+		{ icon: <FaGlobeAmericas className="text-primary text-7xl" />, number: countriesData?.totalCount ?? 5, label: "Countries" },
+		{ icon: <FaHandshake className="text-primary text-7xl" />, number: partnersData?.totalCount ?? 11, label: "Partners" },
 	]
 
 	return (
