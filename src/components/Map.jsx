@@ -1,15 +1,28 @@
 import React from "react"
 import { ComposableMap, Geographies, Geography, Graticule, Sphere } from "react-simple-maps"
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
 
 const geoUrl = "/countries.json"
+
+const fetchCountries = async () => {
+	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/countries`)
+	return response.data
+}
 
 const Map = () => {
 	const [tooltipContent, setTooltipContent] = React.useState("")
 	const [isHovered, setIsHovered] = React.useState(false)
 
+	const { data } = useQuery({
+		queryKey: ["countries"],
+		queryFn: fetchCountries,
+	})
+	const countries = data?.countries?.map(country => country.name)
+
 	const handleMouseEnter = (event, geo) => {
-		if (geo.properties.isPreviousClient) {
+		if (countries.includes(geo.properties.name)) {
 			const { name } = geo.properties
 			setTooltipContent(name)
 			setIsHovered(true)
@@ -37,7 +50,7 @@ const Map = () => {
 									<Sphere stroke="#d1d5db" strokeWidth={0.5} />
 									<Graticule stroke="#d1d5db" strokeWidth={0.5} />
 									<TooltipTrigger asChild>
-										<Geographies geography={geoUrl}>
+										{countries && <Geographies geography={geoUrl}>
 											{({ geographies }) =>
 												geographies.map((geo) => (
 													<Geography
@@ -45,7 +58,7 @@ const Map = () => {
 														geography={geo}
 														onMouseEnter={(event) => handleMouseEnter(event, geo)}
 														onMouseLeave={handleMouseLeave}
-														fill={geo.properties.isPreviousClient ? "#224098" : "#a3b4d8"}
+														fill={countries.includes(geo.properties.name) ? "#224098" : "#a3b4d8"}
 														stroke=""
 														strokeWidth={0.5}
 														style={{
@@ -62,7 +75,7 @@ const Map = () => {
 													/>
 												))
 											}
-										</Geographies>
+										</Geographies>}
 									</TooltipTrigger>
 								</ComposableMap>
 							</div>
