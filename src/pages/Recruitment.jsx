@@ -2,8 +2,22 @@ import React from "react"
 import { FaStar, FaTools, FaGlobeAmericas, FaGraduationCap } from "react-icons/fa"
 import { Card, CardHeader, CardContent } from "../components/ui/card"
 import { Button } from "../components/ui/button"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
+
+const fetchRecruitmentInfo = async () => {
+	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recruitment`)
+	return response.data
+}
 
 const Recruitment = () => {
+	const { data } = useQuery({
+		queryKey: ["recruitmentInfo"],
+		queryFn: fetchRecruitmentInfo,
+	})
+
+	console.log(data)
+
 	return (
 		<>
 			<h1 className="text-primary font-bold md:hidden absolute top-8 right-8 z-50">Recruitment</h1>
@@ -80,7 +94,7 @@ const Recruitment = () => {
 					<a
 						target="_blank"
 						className="text-lg md:text-xl px-8"
-						href="https://docs.google.com/forms/d/e/1FAIpQLScpZUqi7rGQbq9UFfS1Abc8jkhdpKs0mws9XkzkfRahAD1iYw/viewform?usp=sf_link"
+						href={data?.recruitmentFormUrl ?? ""}
 					>
 						Fill out our interest form!
 					</a>
