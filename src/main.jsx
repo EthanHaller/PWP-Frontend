@@ -15,6 +15,7 @@ import AdminHome from "./pages/admin/AdminHome"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
 import "./index.css"
+import Partners from "./pages/admin/Partners"
 
 const router = createBrowserRouter([
 	{
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
 					{
 						path: "home",
 						element: <AdminHome />,
+					},
+					{
+						path: "partners",
+						element: <Partners />,
 					},
 				],
 			},
