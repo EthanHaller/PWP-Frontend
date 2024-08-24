@@ -12,6 +12,7 @@ import NotFound from "./components/NotFound"
 import Login from "./pages/admin/Login"
 import AdminHome from "./pages/admin/AdminHome"
 import Partners from "./pages/admin/Partners"
+import Countries from "./pages/admin/Countries"
 import Projects from "./pages/admin/Projects"
 import AdminMembers from "./pages/admin/Members"
 import ProtectedRoute from "./components/ProtectedRoute"
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
 					{
 						path: "partners",
 						element: <Partners />,
+					},
+					{
+						path: "countries",
+						element: <Countries />,
 					},
 					{
 						path: "projects",

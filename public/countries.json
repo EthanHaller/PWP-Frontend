@@ -5,6 +5,10 @@
 			"type": "GeometryCollection",
 			"geometries": [
 				{
+					"id": "PCI",
+					"properties": { "name": "Pacific Islands" }
+				},
+				{
 					"type": "Polygon",
 					"arcs": [[0, 1, 2, 3, 4, 5]],
 					"id": "AFG",
