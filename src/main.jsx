@@ -7,7 +7,6 @@ import Portfolio from "./pages/Portfolio"
 import Recruitment from "./pages/Recruitment"
 import Members from "./pages/Members"
 import Contact from "./pages/Contact"
-import Project from "./pages/Project"
 import Layout from "./components/Layout"
 import NotFound from "./components/NotFound"
 import Login from "./pages/admin/Login"
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
 			{
 				path: "/portfolio",
 				element: <Portfolio />,
-			},
-			{
-				path: "/portfolio/:id",
-				element: <Project />,
 			},
 			{
 				path: "/recruitment",
