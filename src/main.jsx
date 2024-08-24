@@ -11,10 +11,11 @@ import Layout from "./components/Layout"
 import NotFound from "./components/NotFound"
 import Login from "./pages/admin/Login"
 import AdminHome from "./pages/admin/AdminHome"
+import Partners from "./pages/admin/Partners"
+import Projects from "./pages/admin/Projects"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
 import "./index.css"
-import Partners from "./pages/admin/Partners"
 
 const router = createBrowserRouter([
 	{
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
 						path: "partners",
 						element: <Partners />,
 					},
+					{
+						path: "projects",
+						element: <Projects />
+					}
 				],
 			},
 		],

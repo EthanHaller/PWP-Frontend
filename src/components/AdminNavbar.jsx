@@ -21,7 +21,7 @@ export default function AdminNavbar() {
 	}
 
 	return (
-		<header className="fixed">
+		<header className="absolute md:fixed">
 			{/* Mobile Menu */}
 			<Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
 				<SheetTrigger asChild>
