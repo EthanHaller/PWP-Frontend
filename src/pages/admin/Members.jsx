@@ -3,13 +3,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { useToast } from "../../components/ui/use-toast"
 import { Toaster } from "../../components/ui/toaster"
-import { MdEdit, MdDelete, MdAdd } from "react-icons/md"
+import { MdEdit, MdDelete, MdAdd, MdDragIndicator } from "react-icons/md"
 import Error from "../../components/Error"
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from "../../components/ui/dialog"
 import { Card, CardHeader, CardFooter, CardTitle, CardContent } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { Button } from "../../components/ui/button"
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 
 const fetchMembers = async () => {
 	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/members`)
@@ -104,14 +105,7 @@ const EditMemberModal = ({ open, onOpenChange, member }) => {
 						<Label htmlFor="edit-execRole" className="block text-card-foreground">
 							Exec Role (Optional)
 						</Label>
-						<Input
-							id="edit-execRole"
-							type="text"
-							name="execRole"
-							value={formData.execRole}
-							onChange={handleInputChange}
-							className="w-full"
-						/>
+						<Input id="edit-execRole" type="text" name="execRole" value={formData.execRole} onChange={handleInputChange} className="w-full" />
 					</div>
 					<div>
 						<Label htmlFor="edit-headshot" className="block text-card-foreground">
@@ -269,14 +263,7 @@ const AddMemberModal = ({ open, onOpenChange }) => {
 						<Label htmlFor="add-execRole" className="block text-card-foreground">
 							Exec Role (Optional)
 						</Label>
-						<Input
-							id="add-execRole"
-							type="text"
-							name="execRole"
-							value={formData.execRole}
-							onChange={handleInputChange}
-							className="w-full"
-						/>
+						<Input id="add-execRole" type="text" name="execRole" value={formData.execRole} onChange={handleInputChange} className="w-full" />
 					</div>
 					<div>
 						<Label htmlFor="add-headshot" className="block text-card-foreground">
@@ -303,12 +290,29 @@ const Members = () => {
 		queryKey: ["members"],
 		queryFn: fetchMembers,
 	})
-
+	const queryClient = useQueryClient()
+	const [execRoles, setExecRoles] = useState([])
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 	const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 	const [selectedMember, setSelectedMember] = useState(null)
+	const { toast } = useToast()
 
+	useEffect(() => {
+		if (data?.exec) {
+			const roleOrderMap = {}
+			data.exec.forEach((member) => {
+				const role = member.execRole
+				const order = member.relativeOrder
+				if (roleOrderMap[role] === undefined || order < roleOrderMap[role]) {
+					roleOrderMap[role] = order
+				}
+			})
+
+			const sortedRoles = [...new Set(data.exec.map((member) => member.execRole))].sort((a, b) => roleOrderMap[a] - roleOrderMap[b])
+			setExecRoles(sortedRoles)
+		}
+	}, [data])
 	const openEditModal = (member) => {
 		setSelectedMember(member)
 		setIsEditModalOpen(true)
@@ -323,56 +327,118 @@ const Members = () => {
 		setIsAddModalOpen(true)
 	}
 
+	const handleRoleDragEnd = (result) => {
+		if (!result.destination) return
+
+		const reorderedRoles = Array.from(execRoles)
+		const [movedRole] = reorderedRoles.splice(result.source.index, 1)
+		reorderedRoles.splice(result.destination.index, 0, movedRole)
+
+		setExecRoles(reorderedRoles)
+		updateRoleOrderMutation.mutate(reorderedRoles)
+	}
+
+	const updateRoleOrderMutation = useMutation({
+		mutationFn: async (newRoleOrder) => {
+			await axios.put(`${import.meta.env.VITE_BACKEND_URL}/members/updateRoleOrder`, { roles: newRoleOrder })
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries(["members"])
+			toast({
+				title: "Success",
+				description: "Role order updated successfully!",
+				variant: "success",
+				duration: 2000,
+			})
+		},
+		onError: (err) => {
+			console.error(err)
+			toast({
+				title: "Error",
+				description: "Failed to update role order",
+				variant: "destructive",
+				duration: Infinity,
+			})
+		},
+	})
+
 	if (isError) {
 		return <Error />
 	}
 
 	return (
 		<div className="container mx-auto px-4">
-			<h1 className="text-5xl text-primary font-bold mb-16 pt-16 md:pt-8">Members</h1>
-			<h2 className="text-3xl mb-4">Total Count: {data?.totalCount}</h2>
+			<h1 className="text-5xl text-primary font-bold mb-8 pt-16 md:pt-8">Members</h1>
+			<h2 className="text-3xl mb-8">Total Count: {data?.totalCount}</h2>
+
+			<h3 className="text-2xl mb-2">Executive Roles</h3>
+			<p className="text-muted-foreground text-xs mb-4">Drag to reoder</p>
+			<DragDropContext onDragEnd={handleRoleDragEnd}>
+				<Droppable droppableId="execRoles">
+					{(provided) => (
+						<ul {...provided.droppableProps} ref={provided.innerRef} className="list-none p-0 m-0">
+							{execRoles.map((role, index) => (
+								<Draggable key={role} draggableId={role} index={index}>
+									{(provided) => (
+										<li
+											ref={provided.innerRef}
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+											className="flex justify-between items-center bg-primary-foreground p-4 mb-2 rounded shadow"
+										>
+											{role}
+											<MdDragIndicator />
+										</li>
+									)}
+								</Draggable>
+							))}
+							{provided.placeholder}
+						</ul>
+					)}
+				</Droppable>
+			</DragDropContext>
+
+			<h3 className="text-2xl mt-8 mb-4">Members</h3>
 			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-				{!isLoading &&
-					data.exec
-						.sort((a, b) => (a.relativeOrder ?? 10) - (b.relativeOrder ?? 10))
-						.map((member) => (
-							<Card key={member.id} className="bg-white p-4 flex flex-col">
-								<CardHeader>
-									<img src={member.headshotUrl} alt={member.name} className="h-64 object-contain rounded-lg" />
-								</CardHeader>
-								<CardTitle className="text-card-foreground px-4 pt-4 border-t border-border/30 pb-2">{member.name}</CardTitle>
-								<h4 className="text-sm text-muted-foreground mx-4 pb-4">{member.execRole}</h4>
-								<div className="flex-grow"></div>
-								<CardFooter className="flex justify-end pt-4 pb-0 px-0 border-t border-border/30">
-									<Button variant="ghost" onClick={() => openDeleteModal(member)} className="text-destructive hover:text-destructive">
-										Delete <MdDelete className="ml-2" />
-									</Button>
-									<Button variant="ghost" onClick={() => openEditModal(member)} className="text-primary hover:text-primary">
-										Edit <MdEdit className="ml-2" />
-									</Button>
-								</CardFooter>
-							</Card>
-						))}
-				{!isLoading &&
-					data.nonExec
-						.sort((a, b) => a.name.localeCompare(b.name))
-						.map((member) => (
-							<Card key={member.id} className="bg-white p-4 flex flex-col">
-								<CardHeader>
-									<img src={member.headshotUrl} alt={member.name} className="h-64 object-contain rounded-lg" />
-								</CardHeader>
-								<CardTitle className="text-card-foreground px-4 pt-4 border-t border-border/30 pb-4">{member.name}</CardTitle>
-								<div className="flex-grow"></div>
-								<CardFooter className="flex justify-end pt-4 pb-0 px-0 border-t border-border/30">
-									<Button variant="ghost" onClick={() => openDeleteModal(member)} className="text-destructive hover:text-destructive">
-										Delete <MdDelete className="ml-2" />
-									</Button>
-									<Button variant="ghost" onClick={() => openEditModal(member)} className="text-primary hover:text-primary">
-										Edit <MdEdit className="ml-2" />
-									</Button>
-								</CardFooter>
-							</Card>
-						))}
+				{data?.exec
+					.sort((a, b) => execRoles.indexOf(a.execRole) - execRoles.indexOf(b.execRole))
+					.map((member) => (
+						<Card key={member.id} className="bg-primary-foreground p-4 flex flex-col">
+							<CardHeader>
+								<img src={member.headshotUrl} alt={member.name} className="h-64 object-contain rounded-lg" />
+							</CardHeader>
+							<CardTitle className="text-card-foreground px-4 pt-4 border-t border-border/30 pb-2">{member.name}</CardTitle>
+							<h4 className="text-sm text-muted-foreground mx-4 pb-4">{member.execRole}</h4>
+							<div className="flex-grow"></div>
+							<CardFooter className="flex justify-end pt-4 pb-0 px-0 border-t border-border/30">
+								<Button variant="ghost" onClick={() => openDeleteModal(member)} className="text-destructive hover:text-destructive">
+									Delete <MdDelete className="ml-2" />
+								</Button>
+								<Button variant="ghost" onClick={() => openEditModal(member)} className="text-primary hover:text-primary">
+									Edit <MdEdit className="ml-2" />
+								</Button>
+							</CardFooter>
+						</Card>
+					))}
+				{data?.nonExec
+					.sort((a, b) => a.name.localeCompare(b.name))
+					.map((member) => (
+						<Card key={member.id} className="bg-primary-foreground p-4 flex flex-col">
+							<CardHeader>
+								<img src={member.headshotUrl} alt={member.name} className="h-64 object-contain rounded-lg" />
+							</CardHeader>
+							<CardTitle className="text-card-foreground px-4 pt-4 border-t border-border/30 pb-4">{member.name}</CardTitle>
+							<div className="flex-grow"></div>
+							<CardFooter className="flex justify-end pt-4 pb-0 px-0 border-t border-border/30">
+								<Button variant="ghost" onClick={() => openDeleteModal(member)} className="text-destructive hover:text-destructive">
+									Delete <MdDelete className="ml-2" />
+								</Button>
+								<Button variant="ghost" onClick={() => openEditModal(member)} className="text-primary hover:text-primary">
+									Edit <MdEdit className="ml-2" />
+								</Button>
+							</CardFooter>
+						</Card>
+					))}
 				<Card className="border-dashed border-4 min-h-96">
 					<button onClick={() => openAddModal()} className="h-full w-full">
 						<CardContent className="flex justify-center content-center p-0">
@@ -381,6 +447,7 @@ const Members = () => {
 					</button>
 				</Card>
 			</div>
+
 			<EditMemberModal open={isEditModalOpen} onOpenChange={setIsEditModalOpen} member={selectedMember} />
 			<DeleteMemberModal open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} member={selectedMember} />
 			<AddMemberModal open={isAddModalOpen} onOpenChange={setIsAddModalOpen} />

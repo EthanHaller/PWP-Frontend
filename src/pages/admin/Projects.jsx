@@ -354,7 +354,7 @@ const Projects = () => {
 					data.projects
 						.sort((a, b) => a.date.seconds - b.date.seconds)
 						.map((project) => (
-							<Card key={project.id} className="bg-white p-4 flex flex-col">
+							<Card key={project.id} className="bg-primary-foreground p-4 flex flex-col">
 								<img src={project.coverImageUrl} alt={project.title} className="h-48 object-contain rounded-lg" />
 								<CardTitle className="text-card-foreground px-4 pt-4 border-t border-border/30 pb-4">{project.title}</CardTitle>
 								<div className="flex-grow"></div>
