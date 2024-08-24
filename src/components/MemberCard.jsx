@@ -12,7 +12,7 @@ export default function Component({ headshotUrl, name, execRole, about }) {
 			<div className="p-4 bg-background">
 				<h3 className="text-lg font-bold">{name}</h3>
                 {execRole && <h2 className="text-sm mb-2">{execRole}</h2>}
-				<p className="text-muted-foreground text-sm">{about}</p>
+				{about && <p className="text-muted-foreground text-sm">{about}</p>}
 			</div>
 		</Card>
 	)

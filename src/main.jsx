@@ -13,6 +13,7 @@ import Login from "./pages/admin/Login"
 import AdminHome from "./pages/admin/AdminHome"
 import Partners from "./pages/admin/Partners"
 import Projects from "./pages/admin/Projects"
+import AdminMembers from "./pages/admin/Members"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
 import "./index.css"
@@ -63,8 +64,12 @@ const router = createBrowserRouter([
 					},
 					{
 						path: "projects",
-						element: <Projects />
-					}
+						element: <Projects />,
+					},
+					{
+						path: "members",
+						element: <AdminMembers />,
+					},
 				],
 			},
 		],
