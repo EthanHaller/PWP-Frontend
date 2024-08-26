@@ -15,10 +15,6 @@ const LogoSlider = () => {
 		queryFn: fetchPartners,
 	})
 
-	if (isError) {
-		return <Error />
-	}
-
 	const partners = data?.partners || []
 	const duplicatedLogos = [...partners, ...partners]
 
@@ -29,7 +25,7 @@ const LogoSlider = () => {
 			<div className="scroll flex w-max" style={{ animationDuration: `${duration}s` }}>
 				{isLoading
 					? Array.from({ length: 10 }).map((_, index) => <Skeleton key={index} className="h-24 w-24 mx-8" />)
-					: duplicatedLogos.map((logo, index) => <img key={index} src={logo.imageUrl} alt={logo.name} className="h-24 w-auto px-8" />)}
+					: duplicatedLogos?.map((logo, index) => <img key={index} src={logo.imageUrl} alt={logo.name} className="h-24 w-auto px-8" />)}
 			</div>
 		</div>
 	)

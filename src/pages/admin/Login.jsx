@@ -29,7 +29,7 @@ const Login = () => {
 				title: "Error",
 				description: message,
 				variant: "destructive",
-				duration: Infinity,
+				duration: 2000,
 			})
 		}
 	}
@@ -58,7 +58,7 @@ const Login = () => {
 				title: "Error",
 				description: "There was an error sending an email to reset your password. Please try again.",
 				variant: "destructive",
-				duration: Infinity,
+				duration: 2000,
 			})
 		}
 	}

@@ -386,7 +386,7 @@ const Members = () => {
 											{...provided.dragHandleProps}
 											className="flex justify-between items-center bg-primary-foreground p-4 mb-2 rounded shadow"
 										>
-											{role}
+											{index+1}{":\t"}{role}
 											<MdDragIndicator />
 										</li>
 									)}

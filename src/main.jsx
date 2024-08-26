@@ -15,13 +15,16 @@ import Partners from "./pages/admin/Partners"
 import Countries from "./pages/admin/Countries"
 import Projects from "./pages/admin/Projects"
 import AdminMembers from "./pages/admin/Members"
+import AdminManagement from "./pages/admin/AdminManagement"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
 import "./index.css"
+import Error from "./components/Error"
 
 const router = createBrowserRouter([
 	{
 		element: <Layout />,
+		errorElement: <Error />,
 		children: [
 			{
 				path: "/",
@@ -47,6 +50,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/admin",
+		errorElement: <Error />,
 		children: [
 			{
 				path: "",
@@ -74,6 +78,10 @@ const router = createBrowserRouter([
 					{
 						path: "members",
 						element: <AdminMembers />,
+					},
+					{
+						path: "admin-management",
+						element: <AdminManagement />,
 					},
 				],
 			},

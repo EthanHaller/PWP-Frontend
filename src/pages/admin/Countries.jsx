@@ -67,7 +67,7 @@ const DeleteCountryModal = ({ open, onOpenChange, country }) => {
 	)
 }
 
-const CountriesAdmin = () => {
+const Countries = () => {
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ["countriesWorkedWith"],
 		queryFn: fetchCountriesWorkedWith,
@@ -151,9 +151,9 @@ const CountriesAdmin = () => {
 					.map((country) => (
 						<Badge variant="secondary" key={country.id} className="inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
 							{country.name}
-							<button onClick={() => handleDeleteCountry(country)} className="ml-2 text-destructive">
+							<Button variant="ghost" onClick={() => handleDeleteCountry(country)} className="ml-2 text-destructive hover:text-destructive px-2 py-0">
 								<MdDelete />
-							</button>
+							</Button>
 						</Badge>
 					))}
 			</div>
@@ -175,4 +175,4 @@ const CountriesAdmin = () => {
 	)
 }
 
-export default CountriesAdmin
+export default Countries
