@@ -164,9 +164,6 @@ const DeleteUserModal = ({ open, onOpenChange, userToDelete }) => {
 }
 
 const AdminManagement = () => {
-	const queryClient = useQueryClient()
-	const { toast } = useToast()
-
 	const {
 		data: users,
 		isLoading,
