@@ -16,8 +16,6 @@ const Recruitment = () => {
 		queryFn: fetchRecruitmentInfo,
 	})
 
-	console.log(data)
-
 	return (
 		<>
 			<h1 className="text-primary font-bold md:hidden absolute top-8 right-8 z-50">Recruitment</h1>

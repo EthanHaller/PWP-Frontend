@@ -15,6 +15,7 @@ import Partners from "./pages/admin/Partners"
 import Countries from "./pages/admin/Countries"
 import Projects from "./pages/admin/Projects"
 import AdminMembers from "./pages/admin/Members"
+import AdminRecruitment from "./pages/admin/Recruitment"
 import AdminManagement from "./pages/admin/AdminManagement"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { AuthProvider } from "./context/AuthContext"
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
 					{
 						path: "members",
 						element: <AdminMembers />,
+					},
+					{
+						path: "recruitment",
+						element: <AdminRecruitment />,
 					},
 					{
 						path: "admin-management",
