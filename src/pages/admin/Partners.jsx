@@ -10,6 +10,7 @@ import { Card, CardHeader, CardFooter, CardTitle, CardContent } from "../../comp
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { Button } from "../../components/ui/button"
+import compressFile from "../../utils/compressFile"
 
 const fetchPartners = async () => {
 	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/partners`)
@@ -45,9 +46,10 @@ const EditPartnerModal = ({ open, onOpenChange, partner }) => {
 
 	const mutation = useMutation({
 		mutationFn: async ({ originalId, partnerData }) => {
-			const data = partnerData
-			data.id = originalId
-			const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/partners/update/${originalId}`, data, {
+			const formData = new FormData()
+			formData.append("name", partnerData.name)
+			formData.append("image", await compressFile(partnerData.image, 1.5 * 1024 * 1024))
+			const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/partners/update/${originalId}`, formData, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},
@@ -184,7 +186,10 @@ const AddPartnerModal = ({ open, onOpenChange }) => {
 
 	const mutation = useMutation({
 		mutationFn: async (data) => {
-			const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/partners/add`, data, {
+			const formData = new FormData()
+			formData.append("name", data.name)
+			formData.append("image", await compressFile(data.image, 1.5 * 1024 * 1024))
+			const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/partners/add`, formData, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},

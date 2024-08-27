@@ -7,10 +7,11 @@ import { MdEdit, MdDelete, MdAdd } from "react-icons/md"
 import { FaExternalLinkAlt } from "react-icons/fa"
 import Error from "../../components/Error"
 import { Dialog, DialogContent, DialogFooter, DialogTitle } from "../../components/ui/dialog"
-import { Card, CardFooter, CardTitle, CardContent } from "../../components/ui/card"
+import { Card, CardFooter, CardTitle, CardContent, CardHeader } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { Button } from "../../components/ui/button"
+import compressFile from "../../utils/compressFile"
 
 const fetchProjects = async () => {
 	const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/projects`)
@@ -59,7 +60,7 @@ const EditProjectModal = ({ open, onOpenChange, project }) => {
 			const formData = new FormData()
 			formData.append("title", projectData.title)
 			if (projectData.image) {
-				formData.append("image", projectData.image)
+				formData.append("coverImage", await compressFile(projectData.image, 1.5 * 1024 * 1024))
 			}
 			if (projectData.presentation) {
 				formData.append("presentation", projectData.presentation)
@@ -224,7 +225,7 @@ const AddProjectModal = ({ open, onOpenChange }) => {
 		mutationFn: async (data) => {
 			const formData = new FormData()
 			formData.append("title", data.title)
-			formData.append("coverImage", data.coverImage)
+			formData.append("coverImage", await compressFile(data.coverImage, 1.5 * 1024 * 1024))
 			formData.append("presentation", data.presentation)
 			formData.append("date", data.date)
 
@@ -355,7 +356,9 @@ const Projects = () => {
 						.sort((a, b) => a.date.seconds - b.date.seconds)
 						.map((project) => (
 							<Card key={project.id} className="bg-primary-foreground p-4 flex flex-col">
-								<img src={project.coverImageUrl} alt={project.title} className="h-48 object-contain rounded-lg" />
+								<CardHeader className="p-2">
+									<img src={project.coverImageUrl} alt={project.title} className="h-48 object-contain rounded-lg" />
+								</CardHeader>
 								<CardTitle className="text-card-foreground px-4 pt-4 border-t border-border/30 pb-4">{project.title}</CardTitle>
 								<div className="flex-grow"></div>
 								<CardFooter className="flex justify-end pt-4 pb-0 px-0 border-t border-border/30">
