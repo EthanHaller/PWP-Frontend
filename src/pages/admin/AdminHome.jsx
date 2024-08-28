@@ -23,6 +23,7 @@ const Home = () => {
 				This is where you can edit the content that is displayed on the main PwP website. You can add and delete content such as partner logos,
 				countries impacted, current members, past projects, and interest forms.
 			</p>
+			<p className="mt-16 text-muted-foreground">If you run into any unexpected issues with the site, please contact Ethan Haller at ethanhaller02@gmail.com</p>
 		</div>
 	)
 }

@@ -54,13 +54,9 @@ const EditMemberModal = ({ open, onOpenChange, member }) => {
 			const formData = new FormData()
 			formData.append("name", memberData.name)
 			formData.append("execRole", memberData.execRole)
-			if (memberData.execRole) {
-				formData.append("relativeOrder", 999)
-			}
 			if (memberData.headshot) {
-				formData.append("headshot", await compressFile(memberData.headshot, 1.5 * 1024 * 1024))
+				formData.append("headshot", await compressFile(memberData.headshot, 1 * 1024 * 1024))
 			}
-
 			const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/members/update/${originalId}`, formData, {
 				headers: {
 					"Content-Type": "multipart/form-data",
@@ -213,9 +209,6 @@ const AddMemberModal = ({ open, onOpenChange }) => {
 			const formData = new FormData()
 			formData.append("name", data.name)
 			formData.append("execRole", data.execRole)
-			if (data.execRole) {
-				formData.append("relativeOrder", 999)
-			}
 			formData.append("headshot", await compressFile(data.headshot, 1.5 * 1024 * 1024))
 
 			const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/members/add`, formData, {
