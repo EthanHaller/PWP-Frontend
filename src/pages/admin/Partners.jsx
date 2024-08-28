@@ -67,9 +67,13 @@ const EditPartnerModal = ({ open, onOpenChange, partner }) => {
 		},
 		onError: (err) => {
 			console.error(err)
+			let message = "Failed to update Partner"
+			if (err.message.startsWith("Cannot compress image")) {
+				message = "File size too large"
+			}
 			toast({
 				title: "Error",
-				description: "Failed to update Partner",
+				description: message,
 				variant: "destructive",
 				duration: Infinity,
 			})
@@ -207,9 +211,13 @@ const AddPartnerModal = ({ open, onOpenChange }) => {
 		},
 		onError: (err) => {
 			console.error(err)
+			let message = "Failed to add Partner"
+			if (err.message.startsWith("Cannot compress image")) {
+				message = "File size too large"
+			}
 			toast({
 				title: "Error",
-				description: "Failed to add Partner",
+				description: message,
 				variant: "destructive",
 				duration: Infinity,
 			})

@@ -85,9 +85,13 @@ const EditProjectModal = ({ open, onOpenChange, project }) => {
 		},
 		onError: (err) => {
 			console.error(err)
+			let message = "Failed to update Project"
+			if (err.message.startsWith("Cannot compress image")) {
+				message = "File size too large"
+			}
 			toast({
 				title: "Error",
-				description: "Failed to update Project",
+				description: message,
 				variant: "destructive",
 				duration: Infinity,
 			})
@@ -247,9 +251,13 @@ const AddProjectModal = ({ open, onOpenChange }) => {
 		},
 		onError: (err) => {
 			console.error(err)
+			let message = "Failed to add Project"
+			if (err.message.startsWith("Cannot compress image")) {
+				message = "File size too large"
+			}
 			toast({
 				title: "Error",
-				description: "Failed to add Project",
+				description: message,
 				variant: "destructive",
 				duration: Infinity,
 			})

@@ -79,9 +79,13 @@ const EditMemberModal = ({ open, onOpenChange, member }) => {
 		},
 		onError: (err) => {
 			console.error(err)
+			let message = "Failed to update Member"
+			if (err.message.startsWith("Cannot compress image")) {
+				message = "File size too large"
+			}
 			toast({
 				title: "Error",
-				description: "Failed to update Member",
+				description: message,
 				variant: "destructive",
 				duration: Infinity,
 			})
@@ -232,9 +236,13 @@ const AddMemberModal = ({ open, onOpenChange }) => {
 		},
 		onError: (err) => {
 			console.error(err)
+			let message = "Failed to add Member"
+			if (err.message.startsWith("Cannot compress image")) {
+				message = "File size too large"
+			}
 			toast({
 				title: "Error",
-				description: "Failed to add Member",
+				description: message,
 				variant: "destructive",
 				duration: Infinity,
 			})
@@ -393,7 +401,9 @@ const Members = () => {
 											{...provided.dragHandleProps}
 											className="flex justify-between items-center bg-primary-foreground p-4 mb-2 rounded shadow"
 										>
-											{index+1}{":\t"}{role}
+											{index + 1}
+											{":\t"}
+											{role}
 											<MdDragIndicator />
 										</li>
 									)}
