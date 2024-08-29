@@ -201,8 +201,8 @@ const AdminManagement = () => {
 				</TableHeader>
 				<TableBody>
 					{!isLoading
-						? users?.map((user) => {
-								{
+						? users?.map(
+								(user) =>
 									user.email !== "ethanhaller02@gmail.com" && (
 										<TableRow key={user.uid}>
 											<TableCell>{user.displayName}</TableCell>
@@ -218,8 +218,7 @@ const AdminManagement = () => {
 											</TableCell>
 										</TableRow>
 									)
-								}
-						  })
+						  )
 						: [...Array(3)].map((_, index) => (
 								<TableRow key={index}>
 									<TableCell>

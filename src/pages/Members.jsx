@@ -42,7 +42,11 @@ const Members = () => {
 					{isLoading
 						? Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)
 						: data.nonExec
-								.sort((a, b) => a.name.localeCompare(b.name))
+								.sort((a, b) => {
+									const lastNameA = a.name.split(" ").pop().toLowerCase()
+									const lastNameB = b.name.split(" ").pop().toLowerCase()
+									return lastNameA.localeCompare(lastNameB)
+								})
 								.map((member) => <MemberCard key={member.id} headshotUrl={member.headshotUrl} name={member.name} about={member.about} />)}
 				</div>
 			</div>

@@ -431,7 +431,11 @@ const Members = () => {
 						</Card>
 					))}
 				{data?.nonExec
-					.sort((a, b) => a.name.localeCompare(b.name))
+					.sort((a, b) => {
+						const lastNameA = a.name.split(" ").pop().toLowerCase()
+						const lastNameB = b.name.split(" ").pop().toLowerCase()
+						return lastNameA.localeCompare(lastNameB)
+					})
 					.map((member) => (
 						<Card key={member.id} className="bg-primary-foreground p-4 flex flex-col">
 							<CardHeader>
