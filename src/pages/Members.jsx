@@ -29,7 +29,19 @@ const Members = () => {
 					{isLoading
 						? Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)
 						: data.exec
-								.sort((a, b) => (a.relativeOrder ?? 10) - (b.relativeOrder ?? 10))
+								.sort((a, b) => {
+									const orderComparison = (a.relativeOrder ?? 10) - (b.relativeOrder ?? 10)
+									if (orderComparison !== 0) return orderComparison
+
+									const lastNameA = a.name.split(" ").pop().toLowerCase()
+									const lastNameB = b.name.split(" ").pop().toLowerCase()
+									const lastNameComparison = lastNameA.localeCompare(lastNameB)
+									if (lastNameComparison !== 0) return lastNameComparison
+
+									const firstNameA = a.name.split(" ")[0].toLowerCase()
+									const firstNameB = b.name.split(" ")[0].toLowerCase()
+									return firstNameA.localeCompare(firstNameB)
+								})
 								.map((member) => (
 									<MemberCard
 										key={member.id}
@@ -45,7 +57,12 @@ const Members = () => {
 								.sort((a, b) => {
 									const lastNameA = a.name.split(" ").pop().toLowerCase()
 									const lastNameB = b.name.split(" ").pop().toLowerCase()
-									return lastNameA.localeCompare(lastNameB)
+									const lastNameComparison = lastNameA.localeCompare(lastNameB)
+									if (lastNameComparison !== 0) return lastNameComparison
+
+									const firstNameA = a.name.split(" ")[0].toLowerCase()
+									const firstNameB = b.name.split(" ")[0].toLowerCase()
+									return firstNameA.localeCompare(firstNameB)
 								})
 								.map((member) => <MemberCard key={member.id} headshotUrl={member.headshotUrl} name={member.name} about={member.about} />)}
 				</div>

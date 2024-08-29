@@ -411,7 +411,19 @@ const Members = () => {
 			<h3 className="text-2xl mt-8 mb-4">Members</h3>
 			<div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
 				{data?.exec
-					.sort((a, b) => execRoles.indexOf(a.execRole) - execRoles.indexOf(b.execRole))
+					.sort((a, b) => {
+						const orderComparison = (a.relativeOrder ?? 10) - (b.relativeOrder ?? 10)
+						if (orderComparison !== 0) return orderComparison
+
+						const lastNameA = a.name.split(" ").pop().toLowerCase()
+						const lastNameB = b.name.split(" ").pop().toLowerCase()
+						const lastNameComparison = lastNameA.localeCompare(lastNameB)
+						if (lastNameComparison !== 0) return lastNameComparison
+
+						const firstNameA = a.name.split(" ")[0].toLowerCase()
+						const firstNameB = b.name.split(" ")[0].toLowerCase()
+						return firstNameA.localeCompare(firstNameB)
+					})
 					.map((member) => (
 						<Card key={member.id} className="bg-primary-foreground p-4 flex flex-col">
 							<CardHeader>
@@ -434,7 +446,12 @@ const Members = () => {
 					.sort((a, b) => {
 						const lastNameA = a.name.split(" ").pop().toLowerCase()
 						const lastNameB = b.name.split(" ").pop().toLowerCase()
-						return lastNameA.localeCompare(lastNameB)
+						const lastNameComparison = lastNameA.localeCompare(lastNameB)
+						if (lastNameComparison !== 0) return lastNameComparison
+
+						const firstNameA = a.name.split(" ")[0].toLowerCase()
+						const firstNameB = b.name.split(" ")[0].toLowerCase()
+						return firstNameA.localeCompare(firstNameB)
 					})
 					.map((member) => (
 						<Card key={member.id} className="bg-primary-foreground p-4 flex flex-col">
