@@ -97,7 +97,6 @@ const Recruitment = () => {
 						Fill out our interest form!
 					</a>
 				</Button>
-				<p className="mt-4 text-xs text-muted-foreground">Updated Fall 2024</p>
 			</div>
 		</>
 	)
