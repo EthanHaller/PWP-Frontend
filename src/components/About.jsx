@@ -36,9 +36,9 @@ const About = () => {
 	})
 
 	const stats = [
-		{ icon: <FaUsers className="text-primary text-7xl" />, number: membersData?.totalCount ?? 42, label: "Members" },
-		{ icon: <FaGlobeAmericas className="text-primary text-7xl" />, number: countriesData?.totalCount ?? 5, label: "Countries" },
-		{ icon: <FaHandshake className="text-primary text-7xl" />, number: partnersData?.totalCount ?? 11, label: "Partners" },
+		{ icon: <FaUsers className="text-primary text-7xl" />, number: membersData?.totalCount ?? 0, label: "Members" },
+		{ icon: <FaHandshake className="text-primary text-7xl" />, number: partnersData?.totalCount ?? 0, label: "Companies" },
+		{ icon: <FaGlobeAmericas className="text-primary text-7xl" />, number: countriesData?.totalCount ?? 0, label: "Countries" },
 	]
 
 	return (
@@ -48,8 +48,8 @@ const About = () => {
 				<Card className="bg-primary-foreground mb-6">
 					<CardContent>
 						<p className="text-left p-4 mt-4 text-xl">
-							Profit with Purpose is a UVA CIO with {stats[0].number} members representing more than ten majors. We provide pro bono consulting services to
-							companies from five different countries that align with Environmental, Social, and Governance principles. We are in the process of
+							Profit with Purpose is a UVA CIO with {stats[0].number} members representing more than ten majors. We provide pro bono consulting services to {stats[1].number} companies
+							from {stats[2].number} different countries that align with Environmental, Social, and Governance principles. We are in the process of
 							creating an impact investment fund that will continue to support our partners and our growth as a club.{" "}
 						</p>
 					</CardContent>
