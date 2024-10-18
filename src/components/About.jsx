@@ -48,7 +48,7 @@ const About = () => {
 				<Card className="bg-primary-foreground mb-6">
 					<CardContent>
 						<p className="text-left p-4 mt-4 text-xl">
-							Profit with Purpose is a UVA CIO with 42 members representing more than ten majors. We provide pro bono consulting services to
+							Profit with Purpose is a UVA CIO with {stats[0].number} members representing more than ten majors. We provide pro bono consulting services to
 							companies from five different countries that align with Environmental, Social, and Governance principles. We are in the process of
 							creating an impact investment fund that will continue to support our partners and our growth as a club.{" "}
 						</p>
